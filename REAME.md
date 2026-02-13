@@ -35,3 +35,10 @@ ecommerce-sql-analytics/
 │
 └── video/
     └── walkthrough_link.txt
+
+
+-- many times i got the error as the data can be only loaded from secure_file_prev option 
+
+so what i have done is that transfered all my data to dcoker container to mysql accessible file location 
+docker cp /home/kishore/Desktop/Data/data_engineering_asg1/ecommerce-sql-analytics/data/raw/. mysql-container:/var/lib/mysql-files/
+
