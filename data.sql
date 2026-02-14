@@ -38,7 +38,7 @@ SHOW VARIABLES LIKE 'secure_file_priv';
 -- secure-file-prev
 
 
-show global variables like 'local_infilel';
+show global variables like 'local_infile';
 SET GLOBAL local_infile = 1;  -- Server-side ✓
 
 
@@ -47,7 +47,32 @@ show tables;
 select * from olist_customers_dataset;
 
 
+## know to load the olist geolocation dataset 
+-- these are the fields of the table"geolocation_zip_code_prefix","geolocation_lat","geolocation_lng","geolocation_city","geolocation_state"
+-- "01037",-23.54562128115268,-46.63929204800168,sao paulo,SP
+-- decimal(10,8)  
 
+create table olist_geolocation_dataset1(
+	geolocation_zip_code_prefix int,
+    geolocation_lat decimal(16,14),
+    geolocation_lng decimal(16,14),
+    geolocation_city  varchar(100),
+    geolocation_state  varchar(100)
+);
 
+/*
+LOAD DATA INFILE '/data/raw/olist_customers_dataset.csv'
+INTO TABLE olist_customers_dataset1 
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"' 
+LINES TERMINATED BY '\n' 
+LINES TERMINATED BY '\n' 
+IGNORE 1 ROWS;
+*/
 
-
+LOAD DATA INFILE '/var/lib/mysql-files/olist_geolocation_dataset.csv'
+INTO TABLE olist_geolocation_dataset1 
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"' 
+LINES TERMINATED BY '\n' 
+IGNORE 1 ROWS;
