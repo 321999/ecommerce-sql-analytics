@@ -60,6 +60,9 @@ create table olist_geolocation_dataset1(
     geolocation_state  varchar(100)
 );
 
+alter table olist_geolocation_dataset1
+modify column geolocation_lat decimal(22,19);
+
 /*
 LOAD DATA INFILE '/data/raw/olist_customers_dataset.csv'
 INTO TABLE olist_customers_dataset1 
@@ -76,3 +79,15 @@ FIELDS TERMINATED BY ','
 ENCLOSED BY '"' 
 LINES TERMINATED BY '\n' 
 IGNORE 1 ROWS;
+use olis;
+
+select * from olist_geolocation_dataset1;
+truncate olist_geolocation_dataset1;
+
+-- the error "03:43:29	LOAD DATA INFILE '/var/lib/mysql-files/olist_geolocation_dataset.csv' INTO TABLE olist_geolocation_dataset1  FIELDS TERMINATED BY ','  ENCLOSED BY '"'  LINES TERMINATED BY '\n'  IGNORE 1 ROWS	1000163 row(s) affected, 1 warning(s): 1265 Data truncated for column 'geolocation_lat' at row 774623 Records: 1000163  Deleted: 0  Skipped: 0  Warnings: 1	6.442 sec
+-- " is ignorable
+
+ 
+
+
+SELECT * FROM olist_geolocation_dataset1 LIMIT 774622, 10;
