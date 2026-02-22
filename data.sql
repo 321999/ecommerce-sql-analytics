@@ -135,3 +135,31 @@ select * from olist_order_items;
 -- changing the datatype of freight value 
 alter table olist_order_items 
 modify column freight_value decimal(6,3);
+
+select * from olist_order_items;
+
+-- know load the another file 
+## olist_order_payments_dataset.csv
+/*
+olist payments
+order_id	payment_sequential	payment_type	payment_installments	payment_value
+*/
+create table olist_payment1(
+order_id varchar(50),
+payment_sequential int, 
+payment_type varchar(100),#in how many ways the payment has been made liek if the toakt price is 500 in that 200 is paid by voucher ad 300 by online or credit card then there will be tow wzys he have paid the tota one is by credit card and anotherone uis by voucher  so thie si valled he apyemtn sewquenxce 
+payment_installment int,
+payment_value decimal(6,2)
+);
+-- modify the column payment value  
+-- after doing =MAX(E2:E103887) in excel 
+alter table olist_payment1 
+modify column payment_value decimal(9,3);
+#52108
+select * from olist_payment1;
+load data infile '/var/lib/mysql-files/olist_order_payments_dataset.csv'
+into table olist_payment1
+fields terminated by ','
+enclosed by '"'
+lines terminated by '\n'
+ignore 1 rows;
